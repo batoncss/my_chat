@@ -16,7 +16,7 @@ def logging(data):
 def message_for_all(data):
     for user in users:
         user.send(data)
-        logging(data.decode('utf-8'))
+    logging(data.decode('utf-8'))
 
 
 def check_messages(user, address):
