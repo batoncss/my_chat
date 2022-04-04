@@ -8,9 +8,15 @@ class User(object):
         self.address = user_address
 
 
+
+def logging(data):
+    file_for_log = open('syslog.txt', 'a')
+    file_for_log.write(data + "\n")
+    file_for_log.close()
 def message_for_all(data):
     for user in users:
         user.send(data)
+        logging(data.decode('utf-8'))
 
 
 def check_messages(user, address):
@@ -35,6 +41,7 @@ def start_server():
     while True:
         user_socket, user_address = server_socket.accept()
         print(f'Пользователь {user_address} подключился!')
+        logging(f'Пользователь {user_address} подключился!')
         users.append(user_socket)
         listening_users = Thread(target=check_messages, args=(user_socket, user_address))
         listening_users.start()
@@ -44,7 +51,6 @@ name_users = {}
 server_socket = socket.socket()
 server_socket.bind(('127.0.0.1', 1234))
 server_socket.listen()  # включаем прием сообщений
-
 if __name__ == '__main__':
     start_server()
 
