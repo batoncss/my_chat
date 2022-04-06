@@ -6,7 +6,9 @@ def check_messages(user_socket):
     while True:
         try:
             data = user_socket.recv(1024)
-        except ConnectionResetError or ConnectionAbortedError:
+        except ConnectionResetError:
+            check_conn_err(user_socket)
+        except ConnectionAbortedError:
             check_conn_err(user_socket)
         print(data.decode('utf-8'))
 

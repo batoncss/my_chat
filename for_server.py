@@ -12,14 +12,20 @@ def logging(data):
 
 def message_for_all(data):
     for user in users:
-        user.send(data)
+        try:
+            user.send(data)
+        except ConnectionResetError:
+            continue
     print(data.decode('utf-8'))
     logging(data.decode('utf-8'))
 
 
 def check_messages(user, address):
     while True:
-        data = user.recv(2048)
+        try:
+            data = user.recv(2048)
+        except ConnectionResetError:
+            break
         if data:
             if "/имя" in data.decode("utf-8"):
                 name = data.decode("utf-8")[5:]
@@ -36,6 +42,7 @@ def check_messages(user, address):
 
 
 def start_server(server_socket):
+    print("Сервер запущен!")
     while True:
         user_socket, user_address = server_socket.accept()
         print(f'Пользователь {user_address} подключился!')
