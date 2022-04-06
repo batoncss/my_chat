@@ -10,7 +10,10 @@ def check_messages(user_socket):
             check_conn_err(user_socket)
         except ConnectionAbortedError:
             check_conn_err(user_socket)
-        print(data.decode('utf-8'))
+        except OSError:
+            check_conn_err(user_socket)
+        if data:
+            print(data.decode('utf-8'))
 
 
 def rename(user_socket):
