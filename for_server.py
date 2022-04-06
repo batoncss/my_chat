@@ -16,6 +16,8 @@ def message_for_all(data):
             user.send(data)
         except ConnectionResetError:
             continue
+        except BrokenPipeError:
+            continue
     print(data.decode('utf-8'))
     logging(data.decode('utf-8'))
 

@@ -13,7 +13,8 @@ def check_messages(user_socket):
         except OSError:
             check_conn_err(user_socket)
         if data:
-            print(data.decode('utf-8'))
+            try:
+                print(data.decode('utf-8'))
 
 
 def rename(user_socket):
