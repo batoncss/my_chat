@@ -1,8 +1,8 @@
-import socket
+from socket import socket
 from for_client import send_for_server, rename, check_conn_err
 from errors_for_client import server_is_off
 
-user_socket = socket.socket()
+user_socket = socket()
 try:
     user_socket.connect(('127.0.0.1', 1234))
 except ConnectionRefusedError:

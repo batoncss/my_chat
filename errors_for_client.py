@@ -1,12 +1,11 @@
-import sys
-
+from sys import exit
 
 def check_conn_err(user_socket):
     user_socket.close()
     print('Соединение с сервером разорвано. Требуется перезапуск приложения.')
-    sys.exit()
+    exit()
 
 
 def server_is_off():
     print('Нет соединения с сервером. Обратитесь к администратору.')
-    sys.exit()
+    exit()
